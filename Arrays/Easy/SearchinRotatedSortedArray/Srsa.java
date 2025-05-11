@@ -148,7 +148,38 @@ right ->(mid+1,end)
 
 dry run:
 {3,4,5,6,7,0,1,2}
-divide the array
-8/
+3(start)<=0(target)<=6(end) false
+st(mid+1)7
+end(2)
+mid =0 target found
 
+how to find which part of array is sorted
+             Rsarr
+left                      Right
+if(arr[st]<arr[mid])->if false    else right half sorted
+
+how can we be sure that one part of array is sorted as
+the array was sorted in ascending order and then rotated one part will always 
+follow the increamental order.
+
+the pivot k will always lie to the lhs or rhs of mid
+and the side where pivot is found is unsorted and the opposite side 
+will be automatically sorted.
+
+search tar in between st and end
+if (arr[mid])<=tar<=(arr(end))
+
+pesudocode: (modified binary search)
+//init
+st=0,end=n-1
+while(st<=end){
+    mid=st+(end-st)/2 //calculate mid
+    if(arr[mid]==tar)->mid
+    if(arr[st]<=arr[mid]) //check if left is sorted
+        if(arr[st]<=tar<arr[mid])->left => end = mid-1
+        else right -> st=mid+1
+    else
+         if(arr[mid]<=tar<arr[end])->right => st = mid+1
+        else left -> end=mid-1
+}
 */
