@@ -182,4 +182,12 @@ while(st<=end){
          if(arr[mid]<=tar<arr[end])->right => st = mid+1
         else left -> end=mid-1
 }
+
+Algo 
+1.calculate mid=start+(end-start)/2
+2.check which side is sorted
+3.check if(LHS)(arr[start]<=arr[mid]) denoting left side is sorted
+4.if false denoting else (prompting RHS) is sorted
+5.
+
 */
