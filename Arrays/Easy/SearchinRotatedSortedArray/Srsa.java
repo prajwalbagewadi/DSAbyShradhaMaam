@@ -1,5 +1,4 @@
 
-import java.util.Arrays;
 
 
 
@@ -34,27 +33,50 @@ nums is an ascending array that is possibly rotated.
 */
 public class Srsa {
 
-    public static int binSearch(int st,int end,int[] nums,int target){
-        if(st>end){
-            return -1; //base case
+    // public static int binSearch(int st,int end,int[] nums,int target){
+    //     if(st>end){
+    //         return -1; //base case
+    //     }
+    //     int mid=st+(end-st)/2;
+    //     if(nums[mid]==target){
+    //         return mid;
+    //     } else if(nums[mid]<target){
+    //         //RHS    
+    //         return binSearch(mid+1,end,nums,target);            
+    //     } else {
+    //         //LHS
+    //         return binSearch(st,mid-1,nums,target);  
+    //     }
+    // }
+    // public static int search(int[] nums, int target) { 
+    //     return Srsa.binSearch(0, nums.length, nums, target);
+    // }
+
+    public static int search(int[] A, int tar) {
+        int st=0,end=A.length-1;
+        while(st<=end){
+            int mid=st+(end-st)/2; //calculate mid
+            if(A[mid]==tar){ //base case check if target == mid
+                return mid;
+            }
+            if(A[st]<=A[mid]){ //left side sorted
+                if(A[st]<=tar && tar<=A[mid]) { //mod binary search check
+                    end=mid-1; // set end=mid-1 st to mid-1
+                } else { //check the right side
+                    st=mid+1; // set st to mid+1 to end
+                }
+            } else { //right side sorted
+                if(A[mid]<=tar && tar<=A[end]){ //mod binary search check
+                    st=mid+1; // set st=mid+1 st to end
+                } else { //check the left side
+                    end=mid-1;  // set end=mid-1 st to end
+                }
+            }
         }
-        int mid=st+(end-st)/2;
-        if(nums[mid]==target){
-            return mid;
-        } else if(nums[mid]<target){
-            //RHS    
-            return binSearch(mid+1,end,nums,target);            
-        } else {
-            //LHS
-            return binSearch(st,mid-1,nums,target);  
-        }
-    }
-    public static int search(int[] nums, int target) { 
-        return Srsa.binSearch(0, nums.length, nums, target);
-    }
+        return -1;
+    } //complexity O(log N)
     public static void main(String[] args) {
-        int[] arr={3,4,5,6,7,0,1,2};
-        Arrays.sort(arr);
+        int[] arr={4,5,6,7,0,1,2};
         System.out.print("target found at index:"+Srsa.search(arr,0));
     }
 }
@@ -182,4 +204,18 @@ while(st<=end){
          if(arr[mid]<=tar<arr[end])->right => st = mid+1
         else left -> end=mid-1
 }
+
+Algo
+1.init start=0,end=n-1 
+2.check if(start<=end)
+3.calculate mid=start+(end-start)/2
+4.check which side is sorted
+5.check if(LHS)(arr[start]<=arr[mid]) is sorted
+    5.1.check (mod binarysearch condition) if(arr[start]<=tar && tar<=arr[mid])
+    5.2.set end to mid-1
+    5.3.else check right hand and set start to mid+1
+6.if false denoting else (prompting RHS) is sorted
+    6.1.check (mod binarysearch condition) if(arr[mid]<=tar && tar<=arr[end])
+    6.2.set start to mid+1
+    6.3.else check left hand side and set end to mid-1
 */
