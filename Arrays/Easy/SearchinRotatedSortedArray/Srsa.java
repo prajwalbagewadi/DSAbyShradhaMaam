@@ -205,6 +205,7 @@ while(st<=end){
         else left -> end=mid-1
 }
 
+<<<<<<< HEAD
 Algo
 1.init start=0,end=n-1 
 2.check if(start<=end)
@@ -218,4 +219,13 @@ Algo
     6.1.check (mod binarysearch condition) if(arr[mid]<=tar && tar<=arr[end])
     6.2.set start to mid+1
     6.3.else check left hand side and set end to mid-1
+=======
+Algo 
+1.calculate mid=start+(end-start)/2
+2.check which side is sorted
+3.check if(LHS)(arr[start]<=arr[mid]) denoting left side is sorted
+4.if false denoting else (prompting RHS) is sorted
+5.
+
+>>>>>>> e8d66dcc4aa6da4aa59870a59188798312763495
 */
