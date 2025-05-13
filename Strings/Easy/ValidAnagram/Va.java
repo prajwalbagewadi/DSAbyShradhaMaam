@@ -42,22 +42,23 @@ public class Va {
         //System.out.println(charCount1.get(new Character(s.charAt(0))));
         //System.out.println(charCount1);
         //System.out.println(charCount2);
-        int valid=0;
-        for(char k1:charCount1.keySet()){
-            for(char k2:charCount2.keySet()){
-                if(k1==k2 && charCount1.get(k1)==charCount2.get(k2)){ //check if both keys match and there counts
-                    valid++;
-                }
-            }
-        }
-        if(valid==charCount1.size() && valid==charCount2.size()){
-            return true;
-        }
-        return false;
-    }//doesnt work with big strings
+        // int valid=0;
+        // for(char k1:charCount1.keySet()){
+        //     for(char k2:charCount2.keySet()){
+        //         if(k1==k2 && charCount1.get(k1)==charCount2.get(k2)){ //check if both keys match and there counts
+        //             valid++;
+        //         }
+        //     }
+        // }
+        // if(valid==charCount1.size() && valid==charCount2.size()){
+        //     return true;
+        // }
+        // return false;
+        return charCount1.equals(charCount2); //Return true if both maps are exactly equal — same keys and same values for each key.
+    }//working
     public static void main(String[] args){
         String s="evil";
-        String t="vilp";
+        String t="vile";
         System.out.println("is a Valid Anagram:"+Va.isAnagram(s, t));
     }
 }
@@ -97,4 +98,22 @@ It doesn't sort keys alphabetically either.
 LinkedHashMap – preserves insertion order:
 import java.util.LinkedHashMap;
 Map<Character, Integer> charCount1 = new LinkedHashMap<>();
+
+time Complexity :
+Let's say:
+n = s.length() (same as t.length() since we assume anagrams must be same length)
+
+Step-by-step:
+for (char c : s.toCharArray()) → O(n)
+for (char c : t.toCharArray()) → O(n)
+charCount1.equals(charCount2) → O(k)
+k is the number of distinct characters (worst case: 26 for lowercase letters, 128 or 256 for ASCII).
+
+✅ So, Total Time Complexity:
+
+scss
+Copy
+Edit
+O(n + k) ≈ O(n) for large strings
+Why? Because k is much smaller than n for large inputs.
 */
