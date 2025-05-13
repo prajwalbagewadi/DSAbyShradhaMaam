@@ -33,12 +33,12 @@ s consists only of printable ASCII characters.
 public class Vp {
     public static boolean isPalindrome(String s) {
         System.out.println(s);
-        String procd=s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        String procd=s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();//check with regex pattern and convert to lowerCase
         System.out.println(procd);
         StringBuilder sb=new StringBuilder(procd); //convert string to stringBuilder for mutability
         sb.reverse(); //reverse the string
         System.out.println(sb);
-        if(procd.equals(sb.toString())){ //chech palindrome
+        if(procd.equals(sb.toString())){ //check palindrome or not
             return true;
         }
         return false;
