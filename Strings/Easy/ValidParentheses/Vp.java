@@ -39,20 +39,52 @@ Constraints:
 1 <= s.length <= 104
 s consists of parentheses only '()[]{}'.
 */
+
 import java.util.Stack;
 
 public class Vp {
-    public static void main(String[] args) {
-        Stack<String> s=new Stack<String>();
-        s.push("{");
-        s.push("(");
-        s.push(")");
-        s.push("}");
-        System.out.println("print stack:"+s);
-        System.out.println("Top of stack:"+s.peek());
-        s.pop();
-        System.out.println("print stack:"+s);
-        System.out.println("Top of stack:"+s.peek());
+    public static boolean isValid(String s) {
+        Stack<Character> stk = new Stack<Character>();
+        for(char c:s.toCharArray()){
+            switch(c){
+                case '{':
+                case '(':
+                case '[':
+                    stk.push(c);
+                break;
+                case '}':
+                    if(!stk.empty() && stk.peek()=='{'){
+                        stk.pop();
+                    }else{
+                        return false;
+                    }
+                break;
+                case ')':
+                    if(!stk.empty() && stk.peek()=='('){
+                        stk.pop();
+                    }else{
+                        return false;
+                    }
+                break;
+                case ']':
+                    if(!stk.empty() && stk.peek()=='['){
+                        stk.pop();
+                    }else{
+                        return false;
+                    }
+                break;
+                default:
+                    System.err.print("invalid character");
+            }
+        }
+        if(!stk.empty()){ // if stack is not empty return false.
+            return false;
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        String s="]";
+        System.out.println("output:"+Vp.isValid(s));
     }    
 }
 
@@ -61,4 +93,15 @@ notes:
 use stack class:java.util.Stack
 get top of the stack using peek() method.
 insert into stack push() and remove pop().
+
+Stack<String> s=new Stack<String>();
+    s.push("{");
+    s.push("(");
+    s.push(")");
+    s.push("}");
+    System.out.println("print stack:"+s);
+    System.out.println("Top of stack:"+s.peek());
+    s.pop();
+    System.out.println("print stack:"+s);
+    System.out.println("Top of stack:"+s.peek());
 */
