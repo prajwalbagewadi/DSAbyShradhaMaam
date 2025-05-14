@@ -31,9 +31,9 @@ public class Rcc {
         // code here
          char[] str=s.toCharArray();
         StringBuilder sb=new StringBuilder();
-        sb.append(str[0]);
+        sb.append(str[0]); //add the first char
         for(int i=1;i<str.length;i++){
-            if(str[i-1]!=str[i]){
+            if(str[i-1]!=str[i]){ //if i-1!=i insert
                 sb.append(str[i]);
             }
         }
