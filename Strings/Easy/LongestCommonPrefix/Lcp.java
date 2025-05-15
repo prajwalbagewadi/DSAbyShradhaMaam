@@ -25,18 +25,17 @@ strs[i] consists of only lowercase English letters if it is non-empty.
 */
 public class Lcp {
     public static String longestCommonPrefix(String[] strs) {
-        String subStr=strs[0].substring(0,2); //extract a substring of two chars (Intial value)
+        if(strs==null||strs.length==0){return "";}
+        String prefix=strs[0];
         for(int i=1;i<strs.length;i++){
-            String subStr1=strs[i].substring(0,2);
-            if(subStr.equals(subStr1)){
-                subStr=subStr1;
-            }else{
-                subStr="";
-                break;
+            while(strs[i].indexOf(prefix)!=0){
+                prefix=prefix.substring(0,prefix.length()-1);
+            }
+            if(prefix.isEmpty()){
+                prefix="";
             }
         }
-       //System.out.println(subStr);
-       return subStr;
+        return prefix;
     }
     public static void main(String[] args){
        //String[] input={"interview", "interact", "internet", "pnternal"};
@@ -45,3 +44,20 @@ public class Lcp {
        System.out.println("longest common prefix:"+ longestCommonPrefix(input));
    } 
 }
+/* 
+notes:
+
+if(!strs[0].equals("")) and why not if(!strs.length==0)
+This array contains one element, which is an empty string (""). So:
+input.length → 1
+input[0] → "" (an empty string)
+
+steps:
+1.check if strs=null or strs.length=0 return=""
+2.create a String variable prefix=strs[0] (complete elemenent length)
+3.for each element in strs starting a index 1 
+4.while strs[i].indexOf(prefix) get the substring(prefix) index and check !=0
+5.if not zero set prefix=prefix.substring(0,prefix-1) extract the prefix substring from 0 to len of prefix-1 and insert into prefix
+    eg : start with prefix:"flower" -> prefix:"flow" -> prefix:"fl"..
+6.if prefix=0 return ""
+*/
