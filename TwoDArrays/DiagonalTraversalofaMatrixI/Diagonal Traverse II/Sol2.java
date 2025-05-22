@@ -82,3 +82,90 @@ public class Sol2 {
  * i + j → used to group diagonals from top-right to bottom-left.
  * i - j → used to group diagonals from top-left to bottom-right.
 */
+
+class Solution {
+    public int[] findDiagonalOrder(List<List<Integer>> nums) {
+        int maxSum=0; 
+        int totalLen=0;
+        HashMap<Integer,List<Integer>> map=new HashMap<>();
+        for(int i=nums.size()-1;i>=0;i--){
+	        for(int j=0;j<nums.get(i).size();j++){
+		        map.computeIfAbsent(i+j,k->new ArrayList<>()).add(nums.get(i).get(j));
+                totalLen++;
+		        maxSum=Math.max(maxSum,i+j);
+            }
+        }
+        int[] ans=new int[totalLen];
+        int index=0;
+        for(int i=0;i<=maxSum;i++){
+            List<Integer> list=map.get(i);
+            if(list!=null){
+                for(int e:list){
+                    ans[index++]=e;
+                }
+            }
+        }
+        return ans;
+    }
+}
+/*
+ * steps:
+ * 1.create two variables to store maxSum of coordinates that can be produced 
+ *   and track number of elements for each step
+ * 2.create a hashmap <with i+j coordinates as key,and for each key create a list of elements>
+ * 2.from last row (for loop)
+ * 3.from 0th col (for loop)
+ * 4.map.computeIfAbsent(i+j,k->new ArrayList<>()).add(nums.get(i).get(j));
+ *   “If the map does not already have a list at key i + j, then:
+ *    Create a new empty list (new ArrayList<>())
+ *    Put it in the map at key i + j
+ *    Return that list (whether newly created or already existing)”
+ * 5.add +1 in totalLen
+ * 6.find the maxSum
+ * 7.create a arr of size(totalLen)
+ * 8.create a simple index=0 var
+ * 9.for i=0 to i<=maxSum
+ * 10.create a list of elements present map.get(i)
+ * 11.check if list is not empty 
+ * 12.for each element in the list
+ * 13.add the element in the array
+*/
+/*
+ time Complexity :
+ Sure! Here's the **copy-friendly** version of the complexity analysis:
+
+---
+
+### ✅ Time Complexity:
+
+Let `n` be the number of rows, and let `T` be the total number of elements in all rows:
+
+```
+T = sum of nums.get(i).size() for i from 0 to n - 1
+```
+
+This loop touches each element once, so the time complexity is:
+
+```
+O(T)
+```
+
+---
+
+### ✅ Space Complexity:
+
+* The `map` stores each element once in a list: `O(T)`
+* The output array `ans[]` also stores `T` elements: `O(T)`
+* Variables like `totalLen` and `maxSum` are simple integers: `O(1)`
+
+So overall space complexity is:
+
+```
+O(T)
+```
+
+---
+
+Let me know if you'd like a Markdown or LaTeX version too.
+
+*/
