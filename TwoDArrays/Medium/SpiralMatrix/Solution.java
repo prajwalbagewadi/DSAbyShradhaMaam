@@ -28,28 +28,55 @@ n == matrix[i].length
 public class Solution {
     public static List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> output=new ArrayList<>();
-        int srow=0,erow=matrix.length-1;
-        int scol=0,ecol=matrix[0].length-1;
-        //top boundry
-        for(int i=scol;i<=ecol;i++){
-            output.add(matrix[srow][i]);
+        int m=matrix.length,n=matrix[0].length;
+        int srow=0,erow=m-1;
+        int scol=0,ecol=n-1;
+        while(srow<=erow  && scol<=ecol){
+            //top boundry
+                for(int j=scol;j<=ecol;j++){
+                    output.add(matrix[srow][j]); //srow const
+                }
+            //right boundry
+                for(int i=srow+1;i<=erow;i++){
+                    output.add(matrix[i][ecol]); //ecol const
+                }
+            //bottom boundry
+                for(int j=ecol-1;j>=scol;j--){
+                    if(srow==erow){
+                        break; //edge case
+                    }
+                    output.add(matrix[erow][j]); //erow const
+                }
+            //left boundry
+            for(int i=erow-1;i>=srow+1;i--){
+                if(scol==ecol){
+                    break; //edge case
+                }
+                output.add(matrix[i][scol]); //scol const
+            }
+            srow++;
+            erow--;
+            scol++;
+            ecol--;
         }
-        //right boundry
-        for(int i=srow+1;i<=erow;i++){
-            output.add(matrix[i][ecol]);
-        }
-        //bottom boundry
-        for(int i=ecol-1;i>=srow;i--){
-            output.add(matrix[erow][i]);
-        }
-        //left boundry
-        for(int i=erow-1;i>=srow+1;i--){
-            output.add(matrix[i][scol]);
-        }
+        // //top boundry
+        // for(int i=scol;i<=ecol;i++){
+        //     output.add(matrix[srow][i]);
+        // }
+        // //right boundry
+        // for(int i=srow+1;i<=erow;i++){
+        //     output.add(matrix[i][ecol]);
+        // }
+        // //bottom boundry
+        // for(int i=ecol-1;i>=srow;i--){
+        //     output.add(matrix[erow][i]);
+        // }
+        // //left boundry
+        // for(int i=erow-1;i>=srow+1;i--){
+        //     output.add(matrix[i][scol]);
+        // }
         System.out.println(output);
         return output;
-        
-
     }
     public static void main(String[] args) {
         // 1 2 3 4
@@ -57,7 +84,7 @@ public class Solution {
         // 9 10 11 12
         // 13 14 15 16
         int[][] mat={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-        spiralOrder(mat);
+        List<Integer> output=spiralOrder(mat);
     }
 }
 /* 
@@ -109,4 +136,31 @@ public class Solution {
  * 2.while loop condition (stopping)
  * 3.corner case.
  * (10:40)
+ * 
+ * while condition
+ * srow < = erow (srow must never be greater then erow)
+ * scol < = ecol (scol must never be greater then ecol)
+ * 
+ * when we have odd rows or odd cols:
+ * we use 
+ * srow<=erow
+ * scol < = ecol
+ * 
+ * corner case:
+ * occurs in odd size matrix
+ * eg: 3X5 matrix
+ *  sr   1  2  3  4  5
+ *       6  7  8  9  10
+ *  er   11 12 13 14 15 
+ * in first ilteration our top and bottom boundries are covered
+ * after that sr and er becomes equal
+ * both of them are pointing to same elements
+ * top boundry == my bottom boundry
+ * it repeats the elements so 
+ * we need to apply break condition that if(srow==erow){break} 
+ * simailarly if we have odd number of cols
+ * left boundry == my right boundry
+ * we need to apply break condition that if(scol==ecol){break}
+ * 
+ * time complexity O(m*n)
 */
