@@ -116,5 +116,3 @@ public class Solution {
  *    - Set all elements in matrix[row][i] = 0 for i = 0 to matrix[row].length (i.e., set the whole row to zero).
  *    - Set all elements in matrix[i][col] = 0 for i = 0 to matrix.length (i.e., set the whole column to zero).
  */
-
-*/
