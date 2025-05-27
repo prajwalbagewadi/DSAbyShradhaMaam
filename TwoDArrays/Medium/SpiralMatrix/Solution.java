@@ -27,39 +27,36 @@ n == matrix[i].length
  */
 public class Solution {
     public static List<Integer> spiralOrder(int[][] matrix) {
-        // int top = 0;
-        // int bottom = rows - 1;
-        // int left = 0;
-        // int right = columns - 1
-        //top <= bottom && left <= right 
-        List<Integer> out=new ArrayList<>();
-        int top=0,bottom=matrix.length-1;
-        int left=0,right=matrix[0].length-1;
-        while(top<=bottom && left<=right){
-            //left to right
-            for(int i=0;i<=right;i++){
-                out.add(matrix[top][i]);
-                System.out.println("top:"+top);
-            }
-            top++;
-            System.out.println("top:"+top);
-            //top to bottom
-            for(int i=0;i<=bottom;i++){
-                out.add(matrix[i][bottom]);
-                System.out.println("bottom:"+bottom);
-            }
-            //right to left
-            for(int i=right;i>=left;i--){
-                out.add(matrix[bottom][i]);
-            }
-            //bottom to top
-            
+        List<Integer> output=new ArrayList<>();
+        int srow=0,erow=matrix.length-1;
+        int scol=0,ecol=matrix[0].length-1;
+        //top boundry
+        for(int i=scol;i<=ecol;i++){
+            output.add(matrix[srow][i]);
         }
-        System.out.println(out);
-        return out;
+        //right boundry
+        for(int i=srow+1;i<=erow;i++){
+            output.add(matrix[i][ecol]);
+        }
+        //bottom boundry
+        for(int i=ecol-1;i>=srow;i--){
+            output.add(matrix[erow][i]);
+        }
+        //left boundry
+        for(int i=erow-1;i>=srow+1;i--){
+            output.add(matrix[i][scol]);
+        }
+        System.out.println(output);
+        return output;
+        
+
     }
     public static void main(String[] args) {
-        int[][] mat={{1,2,3},{4,5,6},{7,8,9}};
+        // 1 2 3 4
+        // 5 6 7 8
+        // 9 10 11 12
+        // 13 14 15 16
+        int[][] mat={{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
         spiralOrder(mat);
     }
 }
@@ -87,6 +84,29 @@ public class Solution {
  * right boundry n-1[0] to n-1[m-1] 
  * bottom boundry m-1[n-1] to m-1[0]
  * left boundry 0[m-1] to 0[0]
- *  
  * 
+ * (3:07)
+ * for top and bottom our row is fixed
+ * for right and left our col is fixed
+ * 
+ * srow=0  scol=0
+ * erow=m-1 ecol=n-1
+ * top boundry for j=scol to ecol
+ *                  mat[srow][j]
+ * right boundry for j=srow+1 to erow
+ *                  mat[j][ecol]
+ * bottom boundry for j=ecol-1 to scol
+ *                  mat[erow][j]
+ * left boundry for j=erow-1 to srow+1
+ *                  mat[j][scol]
+ * 
+ * shift boundries
+ * srow=0+1  scol=0+1
+ * erow=m-1-1 ecol=n-1-1
+ * 
+ * steps 
+ * 1.find boundries
+ * 2.while loop condition (stopping)
+ * 3.corner case.
+ * (10:40)
 */
